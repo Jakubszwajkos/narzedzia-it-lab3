@@ -1,31 +1,27 @@
 #!/bin/bash
-# Plik z komendami do tutoriala: https://learngitbranching.js.org
-# Autor: Piotr Szwajkos
-# Narzedzia w branzy IT - Lab 3
+# Autor: Jakub Szwajkos
+# Narzędzia w branży IT - Lab 3
+# Komendy do tutoriala: https://learngitbranching.js.org
 
-# ============================================================
-# SEKCJA: LOCAL (Main)
-# ============================================================
 
-# ------------------------------------------------------------
-# Czesc 1: Introduction Sequence
-# ------------------------------------------------------------
+# SEKCJA LOCAL
 
-# Etap 1: Introduction to Git Commits
+
+# Etap 1: Wprowadzenie do commitów
 git commit
 git commit
 
-# Etap 2: Branching in Git
+# Etap 2: Gałęzie w Git
 git checkout -b bugFix
 
-# Etap 3: Merging in Git
+# Etap 3: Scalanie w Git
 git checkout -b bugFix
 git commit
 git checkout main
 git commit
 git merge bugFix
 
-# Etap 4: Rebase Introduction
+# Etap 4: Wprowadzenie do Rebase
 git checkout -b bugFix
 git commit
 git checkout main
@@ -33,133 +29,113 @@ git commit
 git checkout bugFix
 git rebase main
 
-# ------------------------------------------------------------
-# Czesc 2: Ramping Up
-# ------------------------------------------------------------
-
-# Etap 1: Detach yo' HEAD
+# Etap 5: Odczep sobie HEAD
 git checkout C4
 
-# Etap 2: Relative Refs (^)
+# Etap 6: Referencje względne (^)
 git checkout bugFix^
 
-# Etap 3: Relative Refs #2 (~)
+# Etap 7: Referencje względne #2 (~)
 git branch -f main C6
 git branch -f bugFix bugFix~3
 git checkout HEAD~1
 
-# Etap 4: Reversing Changes in Git
+# Etap 8: Odwracanie zmian
 git reset HEAD~1
 git checkout pushed
 git revert HEAD
 
-# ------------------------------------------------------------
-# Czesc 3: Moving Work Around
-# ------------------------------------------------------------
-
-# Etap 1: Cherry-pick Intro
+# Etap 9: Wprowadzenie do cherry-pick
 git cherry-pick C3 C4 C7
 
-# Etap 2: Interactive Rebase Intro
-# W oknie interaktywnym nalezy wybrac i przestawic kolejnosc commitow: C3, C5, C4
+# Etap 10: Interaktywny rebase
+# W oknie interaktywnym usuń C2 i zmień kolejność na: C3, C5, C4
 git rebase -i HEAD~4
 
-# ------------------------------------------------------------
-# Czesc 4: A Mixed Bag
-# ------------------------------------------------------------
-
-# Etap 1: Grabbing Just 1 Commit
+# Etap 11: Wzięcie tylko 1 commita
 git checkout main
 git cherry-pick C4
 
-# Etap 2: Juggling Commits
-# W oknie interaktywnym przestaw C2 przed C3, potem:
+# Etap 12: Żonglowanie commitami
+# W oknie zamień kolejność: C3 górą, C2 dołem, potem z powrotem
 git rebase -i HEAD~2
 git commit --amend
 git rebase -i HEAD~2
 git branch -f main HEAD
 
-# Etap 3: Juggling Commits #2
+# Etap 13: Żonglowanie commitami #2
 git checkout main
 git cherry-pick C2
 git commit --amend
 git cherry-pick C3
 
-# Etap 4: Git Tags
+# Etap 14: Tagi Gita
 git tag v0 C1
 git tag v1 C2
-git checkout C2
+git checkout v1
 
-# Etap 5: Git Describe
-# Polecenie opisuje historię commitow wzgledem tagów
+# Etap 15: Git describe
 git commit
 
-# ------------------------------------------------------------
-# Czesc 5: Advanced Topics
-# ------------------------------------------------------------
-
-# Etap 1: Rebasing over 9000 times
+# Etap 16: Rebase ponad 9000 razy
 git rebase main bugFix
 git rebase bugFix side
 git rebase side another
 git rebase another main
 
-# Etap 2: Multiple parents
+# Etap 17: Wielu rodziców
 git branch bugWork main~^2~
 
-# Etap 3: Branch Spaghetti!
+# Etap 18: Spaghetti gałęzi
 git checkout one
 git cherry-pick C4 C3 C2
 git checkout two
 git cherry-pick C5 C4 C3 C2
 git branch -f three C2
 
-# ============================================================
-# SEKCJA: REMOTE
-# ============================================================
 
-# ------------------------------------------------------------
-# Czesc 1: Push & Pull -- Git Remotes!
-# ------------------------------------------------------------
+# SEKCJA REMOTE
 
-# Etap 1: Clone Intro
+
+# Etap 19: Wstęp do klonowania
 git clone
 
-# Etap 2: Remote Branches
+# Etap 20: Zdalne gałęzie
 git commit
 git checkout o/main
 git commit
 
-# Etap 3: Git Fetchin'
+# Etap 21: Git fetch
 git fetch
 
-# Etap 4: Git Pullin'
+# Etap 22: Git pull
 git pull
 
-# Etap 5: Faking Teamwork
+# Etap 23: Symulacja pracy zespołowej
+git clone
 git fakeTeamwork main 2
 git commit
 git pull
 
-# Etap 6: Git Pushin'
+# Etap 24: Git push
+git commit
 git commit
 git push
 
-# Etap 7: Diverged History
-git fetch
-git rebase o/main
+# Etap 25: Rozbieżna historia
+git clone
+git fakeTeamwork
+git commit
+git pull --rebase
 git push
 
-# Etap 8: Locked Main
+# Etap 26: Zablokowany main
 git checkout -b feature
 git push origin feature
+git checkout main
 git reset --hard o/main
 
-# ------------------------------------------------------------
-# Czesc 2: To Origin And Beyond -- Advanced Git Remotes!
-# ------------------------------------------------------------
-
-# Etap 1: Push Main!
+# Etap 27: Wypychanie dla wytrwałych
 git fetch
 git rebase o/main side1
 git rebase side1 side2
@@ -167,7 +143,7 @@ git rebase side2 side3
 git rebase side3 main
 git push
 
-# Etap 2: Merging with remotes
+# Etap 28: Scalanie z remote
 git checkout main
 git pull
 git merge side1
@@ -175,31 +151,30 @@ git merge side2
 git merge side3
 git push
 
-# Etap 3: Remote Tracking
+# Etap 29: Śledzenie zdalnych repo
+git fetch
 git checkout -b side o/main
 git commit
-git fetch
-git rebase o/main
-git push
+git push origin side:main
 
-# Etap 4: Git Push Arguments
+# Etap 30: Argumenty git push
 git push origin main
 git push origin foo
 
-# Etap 5: Git Push Arguments -- Expanded!
-git push origin foo^:main
-git push origin main:foo
+# Etap 31: Argumenty git push rozszerzone
+git push origin foo:main
+git push origin main~1:foo
 
-# Etap 6: Fetch Arguments
-git fetch origin main~1:foo
-git fetch origin foo:main
+# Etap 32: Argumenty fetch
+git fetch origin C3:foo
+git fetch origin C6:main
 git checkout foo
 git merge main
 
-# Etap 7: Source of nothing
-git push origin :foo
+# Etap 33: Źródło nicości
 git fetch origin :bar
+git push origin :foo
 
-# Etap 8: Pull Arguments
+# Etap 34: Argumenty pull
 git pull origin bar:foo
 git pull origin main:side
